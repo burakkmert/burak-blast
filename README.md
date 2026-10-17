@@ -3,7 +3,7 @@
 **Blokları yerleştir, çizgileri patlat, kombonun tadını çıkar. Tahta dolmadan önce.**
 
 [![Lisans: MIT](https://img.shields.io/badge/lisans-MIT-yellow.svg)](LICENSE)
-[![CI](https://github.com/burakkmert/burakblast/actions/workflows/ci.yml/badge.svg)](https://github.com/burakkmert/burakblast/actions/workflows/ci.yml)
+[![CI](https://github.com/burakkmert/burak-blast/actions/workflows/ci.yml/badge.svg)](https://github.com/burakkmert/burak-blast/actions/workflows/ci.yml)
 [![Vite](https://img.shields.io/badge/Vite-8-646cff.svg?logo=vite&logoColor=white)](https://vitejs.dev)
 [![Capacitor](https://img.shields.io/badge/Capacitor-8-119eff.svg?logo=capacitor&logoColor=white)](https://capacitorjs.com)
 
