@@ -1,0 +1,78 @@
+/* Block themes. A theme only sets --t-* variables; .cell.filled draws the blocks.
+   The variables inherit: <html data-theme> themes the whole game, while a card's own
+   data-theme affects only that card's preview.
+
+     fill-mix / fill-base : body color (block color mixed with a base)
+     top-mix              : how light the top of the body is (100% is flat)
+     hi-mix / lo-mix      : light top edge / dark bottom edge colors
+     bevel-top / bottom   : edge thickness     ring-* : thin outline
+     glow / inset-glow    : outer / inner glow  gloss-op : glossy highlight
+     image                : photo layer
+     tone-center / edge   : radial tint from the piece color (::after, blended) */
+:root,
+[data-theme='jelly'] {
+  --t-fill-mix: 100%;
+  --t-fill-base: #000;
+  --t-top-mix: 62%;
+  --t-hi-mix: 62%;
+  --t-lo-mix: 62%;
+  --t-bevel-top: 3px;
+  --t-bevel-bottom: 4px;
+  --t-ring-w: 1px;
+  --t-ring-mix: 0%;
+  --t-ring-base: rgba(0, 0, 0, 0.12);
+  --t-glow: 0px;
+  --t-inset-glow: 0px;
+  --t-gloss-op: 1;
+  --t-image: none;
+  --t-tone-center: 0%;
+  --t-tone-edge: 0%;
+  --t-blend: normal;
+}
+
+[data-theme='flat'] {
+  --t-top-mix: 100%;
+  --t-bevel-top: 0px;
+  --t-bevel-bottom: 0px;
+  --t-ring-w: 0px;
+  --t-gloss-op: 0;
+}
+
+[data-theme='neon'] {
+  --t-fill-mix: 14%;
+  --t-fill-base: #0b0a1e;
+  --t-top-mix: 100%;
+  --t-bevel-top: 0px;
+  --t-bevel-bottom: 0px;
+  --t-ring-w: 2px;
+  --t-ring-mix: 100%;
+  --t-glow: 8px;
+  --t-inset-glow: 8px;
+  --t-gloss-op: 0;
+}
+
+[data-theme='pastel'] {
+  --t-fill-mix: 52%;
+  --t-fill-base: #fff;
+  --t-top-mix: 100%;
+  --t-hi-mix: 25%;
+  --t-lo-mix: 82%;
+  --t-bevel-top: 2px;
+  --t-bevel-bottom: 3px;
+  --t-ring-w: 0px;
+  --t-gloss-op: 0.5;
+}
+
+[data-theme='photo'] {
+  --t-top-mix: 100%;
+  --t-bevel-top: 0px;
+  --t-bevel-bottom: 0px;
+  --t-ring-w: 2px; /* thin outline in the piece's own color */
+  --t-ring-mix: 100%;
+  --t-gloss-op: 0;
+  --t-image: var(--photo, none);
+  /* Tint strength follows the slider (--photo-tone, 0 to 70) relative to its reference value */
+  --t-tone-center: calc(var(--photo-tone, 0) / var(--photo-tone-ref) * var(--photo-tint-center));
+  --t-tone-edge: calc(var(--photo-tone, 0) / var(--photo-tone-ref) * var(--photo-tint-edge));
+  --t-blend: overlay; /* soft-light is too faint, hard-light too harsh */
+}

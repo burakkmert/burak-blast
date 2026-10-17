@@ -1,0 +1,58 @@
+/* Landscape on short screens: info, board and tray sit side by side. */
+@media (orientation: landscape) and (max-height: 520px) {
+  :root {
+    --board-size: min(calc(100dvh - 2 * var(--pad) - var(--safe-t) - var(--safe-b)), 56vw, 450px);
+  }
+
+  #app {
+    flex-direction: row;
+    gap: 18px;
+  }
+
+  .topbar {
+    width: clamp(104px, 18vw, 160px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .menu-btn {
+    order: -1;
+    align-self: flex-start;
+  }
+
+  .logo {
+    order: 0;
+  }
+
+  .score {
+    order: 1;
+  }
+
+  .best {
+    order: 2;
+  }
+
+  .score-value {
+    font-size: clamp(2rem, 7vw, 2.8rem);
+  }
+
+  .game {
+    flex-direction: row;
+    gap: 14px;
+  }
+
+  .tray {
+    width: var(--slot-size);
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .drawer {
+    padding-top: 4px;
+  }
+
+  .menu-item {
+    min-height: 46px;
+  }
+}

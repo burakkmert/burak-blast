@@ -1,0 +1,120 @@
+.tray {
+  width: var(--board-size);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* TRAY_SLOTS in config.js */
+  gap: var(--tray-gap);
+}
+
+.slot {
+  aspect-ratio: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--slot-bg);
+  border-radius: var(--radius-slot);
+  touch-action: none; /* the page must not scroll while dragging a piece */
+  cursor: grab;
+}
+
+/* A tray piece: the longest piece (5 cells) fits the slot minus its padding and gaps */
+.piece {
+  --cell: calc((var(--slot-size) - 12px - 4 * var(--gap)) / 5);
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--cell));
+  grid-template-rows: repeat(var(--rows), var(--cell));
+  gap: var(--gap);
+}
+
+.piece .cell:not(.filled) {
+  background: transparent;
+  box-shadow: none;
+}
+
+/* The original fades while its copy is being dragged */
+.piece.dragging {
+  opacity: 0.2;
+}
+
+/* A piece that fits nowhere is gray and cannot be dragged */
+.slot.unfit {
+  cursor: not-allowed;
+}
+
+.slot.unfit .piece {
+  filter: grayscale(1);
+  opacity: 0.35;
+}
+
+/* New pieces bounce in one after another */
+.piece.arrive {
+  animation: arrive var(--dur-slow) var(--ease-spring) var(--arrive-delay, 0ms) backwards;
+}
+
+@keyframes arrive {
+  from {
+    transform: translateY(46px) scale(0.5);
+    opacity: 0;
+  }
+}
+
+/* An invalid drop wobbles when the piece returns */
+.piece.shake {
+  animation: piece-shake 0.32s ease-out;
+}
+
+@keyframes piece-shake {
+  20% {
+    transform: translateX(-6px) rotate(-3deg);
+  }
+  45% {
+    transform: translateX(5px) rotate(2deg);
+  }
+  70% {
+    transform: translateX(-3px) rotate(-1deg);
+  }
+}
+
+/* The copy that follows the finger. drag.js moves it with transform: translate3d, one layer, no heavy filters. */
+.ghost {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  pointer-events: none;
+  will-change: transform;
+  contain: layout style;
+}
+
+.ghost .piece {
+  transform-origin: center;
+  opacity: 1;
+}
+
+/* No per-block shadows on the ghost, only a cheap inner outline */
+.ghost .cell.filled {
+  box-shadow: inset 0 0 0 var(--t-ring-w) var(--ring);
+}
+
+/* ---------- While dragging (body.dragging, set by drag.js): drop heavy effects, restored afterwards ---------- */
+body.dragging .blob {
+  animation-play-state: paused;
+}
+
+body.dragging .board {
+  box-shadow: none;
+}
+
+body.dragging .cell.filled {
+  box-shadow: inset 0 0 0 var(--t-ring-w) var(--ring);
+}
+
+/* Gloss and the blended photo tint layer */
+body.dragging .cell.filled::after,
+.ghost .cell.filled::after {
+  display: none;
+}
+
+body.dragging .cell.will-clear {
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.85);
+}

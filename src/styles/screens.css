@@ -1,0 +1,252 @@
+/* Full-screen panels: settings, how to play, blocks, editor, appearance, photo crop. */
+
+#screens {
+  position: relative;
+  z-index: var(--z-screen);
+}
+
+.screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: var(--safe-t) var(--safe-r) var(--safe-b) var(--safe-l);
+  background: linear-gradient(160deg, var(--bg-2), var(--bg-1) 45%, var(--bg-0));
+  animation: screen-in var(--dur-med) var(--ease-out);
+}
+
+@keyframes screen-in {
+  from {
+    transform: translateX(24px);
+    opacity: 0;
+  }
+}
+
+.screen-head {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px;
+}
+
+.screen-title {
+  font-size: 1.3rem;
+}
+
+.screen-body {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y; /* body disables touch panning, so scrolling is re-enabled here */
+  padding: 8px 16px 24px;
+  user-select: text;
+}
+
+.screen-body > * {
+  max-width: 560px;
+  margin-inline: auto;
+}
+
+/* ---------- How to play and about ---------- */
+.howto {
+  padding-left: 1.3em;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  line-height: 1.45;
+  font-size: 1.05rem;
+}
+
+.about {
+  text-align: center;
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ---------- My blocks ---------- */
+.blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  padding: 10px;
+  background: var(--slot-bg);
+  border: 1px solid var(--board-border);
+  border-radius: var(--radius-slot);
+}
+
+.card.off .card-preview {
+  opacity: 0.35;
+  filter: grayscale(0.6);
+}
+
+.card-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 92px;
+}
+
+.card-name {
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.card-actions .btn {
+  flex: 1;
+  padding: 6px;
+  font-size: 0.8rem;
+}
+
+/* ---------- Piece editor ---------- */
+.ed {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+}
+
+.ed-grid {
+  width: min(80vw, 300px);
+  aspect-ratio: 1;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* MAX_PIECE_SIZE in core/shapes.js */
+  grid-template-rows: repeat(5, 1fr);
+  gap: var(--gap);
+  padding: var(--gap);
+  background: linear-gradient(180deg, var(--board-bg-a), var(--board-bg-b));
+  border: 1px solid var(--board-border);
+  border-radius: var(--radius-board);
+  touch-action: none; /* drawing by dragging a finger */
+}
+
+.ed-tools,
+.ed-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.ed-actions .btn {
+  flex: 1;
+  min-width: 120px;
+}
+
+.swatches {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.swatch {
+  width: var(--tap);
+  height: var(--tap);
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.swatch[aria-pressed='true'] {
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
+
+.ed-preview {
+  width: var(--slot-size);
+  margin: 0 auto;
+}
+
+/* ---------- Appearance ---------- */
+.appearance {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.theme-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+.theme-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  padding: 8px;
+  font: inherit;
+  color: var(--text);
+  background: var(--slot-bg);
+  border: 2px solid var(--board-border);
+  border-radius: var(--radius-slot);
+  cursor: pointer;
+}
+
+.theme-card.on {
+  border-color: var(--gold);
+}
+
+.theme-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 72px;
+  padding: 8px;
+  background: var(--board-bg-b);
+  border-radius: var(--radius-btn);
+}
+
+/* ---------- Photo crop ---------- */
+.crop {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+}
+
+.crop-frame {
+  position: relative;
+  overflow: hidden;
+  touch-action: none; /* one finger drags, two pinch */
+  background: #000;
+  border: 2px solid var(--gold);
+  border-radius: var(--radius-btn);
+}
+
+.crop-img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  max-width: none;
+  transform-origin: 0 0;
+  pointer-events: none;
+  user-select: none;
+}

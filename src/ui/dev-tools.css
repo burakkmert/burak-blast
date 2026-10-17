@@ -1,0 +1,31 @@
+.dev-toggle {
+  position: fixed;
+  right: calc(8px + var(--safe-r));
+  bottom: calc(8px + var(--safe-b));
+  z-index: 900;
+  width: var(--tap);
+  height: var(--tap);
+  border: 0;
+  border-radius: 50%;
+  font: inherit;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.14);
+  opacity: 0.6;
+}
+
+.dev-panel {
+  position: fixed;
+  right: calc(8px + var(--safe-r));
+  bottom: calc(60px + var(--safe-b));
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  background: var(--panel-bg);
+  border: 1px solid var(--board-border);
+  border-radius: var(--radius-btn);
+  box-shadow: var(--shadow-panel);
+}

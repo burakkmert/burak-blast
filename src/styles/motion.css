@@ -1,0 +1,12 @@
+/* "Reduce animations" setting (:root.reduce-motion); its default comes from the system preference. */
+:root.reduce-motion .blob {
+  animation: none;
+}
+
+:root.reduce-motion *,
+:root.reduce-motion *::before,
+:root.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}

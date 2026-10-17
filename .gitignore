@@ -1,0 +1,32 @@
+node_modules
+dist
+dist-ssr
+*.local
+
+# Private files
+icon-private/
+.env
+.claude/
+CLAUDE.md
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Android build output and secrets
+android/app/build
+android/build
+android/.gradle
+android/local.properties
+local.properties
+*.keystore
+*.jks
+
+# Editors and OS
+.idea
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+*.suo
+*.sw?

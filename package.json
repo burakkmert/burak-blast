@@ -1,0 +1,39 @@
+{
+  "name": "burakblast",
+  "version": "1.0.0",
+  "description": "A block puzzle game: place pieces, clear lines, chain combos. Web and Android.",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "android": "npm run build && npx cap sync android && npx cap open android",
+    "phone": "npm run build && npx cap sync android && npx cap run android",
+    "icon:public": "node scripts/icons.mjs public",
+    "icon:private": "node scripts/icons.mjs private"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.13.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.13.0",
+    "prettier": "^3.9.10",
+    "sharp": "^0.35.5",
+    "vite": "^8.3.0",
+    "vitest": "^5.0.5"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.5.3",
+    "@capacitor/app": "^8.1.2",
+    "@capacitor/cli": "^8.5.3",
+    "@capacitor/core": "^8.5.3",
+    "@capacitor/haptics": "^8.0.2",
+    "@fontsource-variable/fredoka": "^5.3.0"
+  }
+}

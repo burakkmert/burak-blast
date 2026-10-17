@@ -1,0 +1,93 @@
+/* Design tokens. Edit these to restyle the game; everything else reads them. */
+:root {
+  /* Background */
+  --bg-0: #0e0c26;
+  --bg-1: #1a1650;
+  --bg-2: #2b1a66;
+  --blob-1: rgba(124, 92, 255, 0.38);
+  --blob-2: rgba(255, 93, 140, 0.22);
+  --blob-3: rgba(40, 200, 224, 0.2);
+
+  /* Photo theme tint from each piece's color (radial: subtle in the middle, stronger at the edge).
+     Values apply at the slider's reference position and scale proportionally with it. */
+  --photo-tint-center: 15%;
+  --photo-tint-edge: 50%;
+  --photo-tone-ref: 40; /* default slider value; matches SETTINGS_DEFAULTS.photoTone */
+
+  /* Surfaces */
+  --board-bg-a: #2d2870;
+  --board-bg-b: #231f5c;
+  --board-border: rgba(255, 255, 255, 0.1);
+  --cell-empty: #3a3585;
+  --slot-bg: rgba(255, 255, 255, 0.05);
+  --panel-bg: #1f1b57;
+  --overlay-bg: rgba(10, 8, 28, 0.74);
+  --gameover-tint: #6d6a86;
+
+  /* Text and accents */
+  --text: #f1efff;
+  --text-dim: rgba(241, 239, 255, 0.65);
+  --accent: #7c5cff;
+  --accent-dark: #4b32c4;
+  --gold: #ffd23f;
+  --gold-dark: #c98a00;
+  --pink: #ff4f9a;
+  --mint: #3ddc97;
+  --mint-dark: #0e8a5b;
+
+  /* Block colors; BLOCK_COLORS in config.js points here */
+  --blk-red: #ff5d73;
+  --blk-orange: #ff9a3d;
+  --blk-yellow: #ffd23f;
+  --blk-green: #3ddc97;
+  --blk-aqua: #28c8e0;
+  --blk-blue: #4f8cff;
+  --blk-violet: #a86bff;
+
+  /* Shape and spacing */
+  --radius-board: 16px;
+  --radius-cell: 7px;
+  --radius-slot: 16px;
+  --radius-btn: 12px;
+  --gap: 3px;
+  --tray-gap: 8px;
+  --pad: 10px;
+  --tap: 44px; /* minimum touch target */
+
+  /* Shadows */
+  --shadow-board: 0 10px 30px rgba(0, 0, 0, 0.45);
+  --shadow-panel: 0 18px 50px rgba(0, 0, 0, 0.6);
+
+  /* Durations and easing. --dur-clear and --dur-gameover mirror TIMING in config.js. */
+  --dur-fast: 150ms;
+  --dur-med: 250ms;
+  --dur-slow: 450ms;
+  --dur-clear: 300ms;
+  --dur-settle: 280ms;
+  --dur-gameover: 180ms;
+  --dur-shake: 360ms;
+  --ease-out: cubic-bezier(0.22, 0.8, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --font: 'Fredoka Variable', 'Fredoka', 'Baloo 2', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* Safe areas (notch, system bars) */
+  --safe-t: max(env(safe-area-inset-top, 0px), var(--safe-area-inset-top, 0px));
+  --safe-r: max(env(safe-area-inset-right, 0px), var(--safe-area-inset-right, 0px));
+  --safe-b: max(env(safe-area-inset-bottom, 0px), var(--safe-area-inset-bottom, 0px));
+  --safe-l: max(env(safe-area-inset-left, 0px), var(--safe-area-inset-left, 0px));
+
+  /* Layout: the single source for board and tray width.
+     Vertically, the header and gaps take about --chrome-h and the tray is about a third of the
+     board's height, so the board is at most (height - chrome) * 0.75. */
+  --chrome-h: 150px;
+  --board-size: min(92vw, 450px, calc((100dvh - var(--chrome-h) - var(--safe-t) - var(--safe-b)) * 0.75));
+  --slot-size: calc((var(--board-size) - 2 * var(--tray-gap)) / 3);
+
+  /* Stacking order */
+  --z-drawer: 1300;
+  --z-screen: 1400;
+  --z-dialog: 1500;
+  --z-toast: 1600;
+  --drawer-w: min(82vw, 320px);
+}

@@ -1,0 +1,150 @@
+/* Game-over panel, dialogs and toasts. */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(16px + var(--safe-t)) calc(16px + var(--safe-r)) calc(16px + var(--safe-b)) calc(16px + var(--safe-l));
+  background: var(--overlay-bg);
+  animation: fade-in var(--dur-med) ease-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.panel {
+  position: relative;
+  width: min(86vw, 340px);
+  max-height: 100%;
+  padding: 24px 20px;
+  text-align: center;
+  background: var(--panel-bg);
+  border: 1px solid var(--board-border);
+  border-radius: 20px;
+  box-shadow: var(--shadow-panel);
+  animation: panel-pop 0.4s var(--ease-spring);
+}
+
+@keyframes panel-pop {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+}
+
+.panel h2 {
+  font-size: 1.8rem;
+  margin-bottom: 14px;
+}
+
+.panel-label {
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.panel-score {
+  font-size: 3.4rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.record {
+  margin-top: 8px;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--gold);
+  text-shadow: 0 0 14px rgba(255, 210, 63, 0.7);
+  animation: record-pulse 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes record-pulse {
+  to {
+    transform: scale(1.12);
+  }
+}
+
+.panel-best {
+  margin: 8px 0 20px;
+  color: var(--text-dim);
+}
+
+.confetti {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  width: 8px;
+  height: 12px;
+  border-radius: 2px;
+  pointer-events: none;
+  animation: confetti-fly 1.4s ease-out forwards;
+}
+
+@keyframes confetti-fly {
+  0% {
+    transform: translate(0, 0) rotate(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--dx), var(--dy)) rotate(var(--rot));
+    opacity: 0;
+  }
+}
+
+/* ---------- Dialog and toast ---------- */
+#dialog {
+  z-index: var(--z-dialog);
+}
+
+.dialog-msg {
+  font-size: 1.1rem;
+  line-height: 1.4;
+  margin-bottom: 18px;
+}
+
+.dialog-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(24px + var(--safe-b));
+  z-index: var(--z-toast);
+  max-width: 88vw;
+  padding: 10px 16px;
+  text-align: center;
+  font-weight: 600;
+  background: var(--panel-bg);
+  border: 1px solid var(--board-border);
+  border-radius: 999px;
+  box-shadow: var(--shadow-panel);
+  transform: translateX(-50%);
+  animation: toast-in 2.4s var(--ease-out) forwards; /* TIMING.toastMs */
+  pointer-events: none;
+}
+
+@keyframes toast-in {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 16px);
+  }
+  10%,
+  85% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  100% {
+    opacity: 0;
+  }
+}

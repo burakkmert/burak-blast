@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Oyunun koyu arka planı (src/style.css bg-0 ile aynı) -->
+    <color name="bgDark">#0E0C26</color>
+</resources>

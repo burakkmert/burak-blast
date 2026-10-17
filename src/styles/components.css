@@ -1,0 +1,240 @@
+/* Shared controls: buttons, switches, segmented buttons, form fields. */
+
+.btn {
+  min-height: var(--tap);
+  min-width: var(--tap);
+  padding: 8px 14px;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 80%, white), var(--accent));
+  border: 0;
+  border-radius: var(--radius-btn);
+  box-shadow: 0 4px 0 var(--accent-dark);
+  cursor: pointer;
+}
+
+.btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--accent-dark);
+}
+
+.btn-big {
+  padding: 12px 28px;
+  font-size: 1.1rem;
+}
+
+.btn-ghost {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.btn-ghost:active {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.btn.danger {
+  color: #ff8a9a;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.btn.wide {
+  width: 100%;
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tap);
+  height: var(--tap);
+  flex: none;
+  color: var(--text);
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.icon-btn:active {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.ico {
+  width: 26px;
+  height: 26px;
+}
+
+/* ---------- Text ---------- */
+.hint {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  text-align: center;
+  margin: 6px 0;
+}
+
+.hint.error {
+  color: #ff8a9a;
+}
+
+.notice {
+  margin: 10px 0;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  color: #ffe9a6;
+  background: rgba(255, 210, 63, 0.12);
+  border: 1px solid rgba(255, 210, 63, 0.35);
+  border-radius: var(--radius-btn);
+}
+
+.section-title {
+  margin-top: 8px;
+  font-size: 1.05rem;
+}
+
+/* ---------- Setting rows and switch ---------- */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 56px;
+  padding: 8px 14px;
+  font: inherit;
+  color: var(--text);
+  text-align: left;
+  background: rgba(255, 255, 255, 0.06);
+  border: 0;
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+}
+
+.row-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.row-text b {
+  font-weight: 600;
+}
+
+.row-text small {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+.row.mini {
+  min-height: var(--tap);
+  padding: 4px 10px;
+  font-size: 0.9rem;
+}
+
+.switch {
+  position: relative;
+  flex: none;
+  width: 48px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  transition: background var(--dur-fast);
+}
+
+.switch i {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform var(--dur-fast) var(--ease-spring);
+}
+
+.row[aria-checked='true'] .switch {
+  background: var(--mint-dark);
+}
+
+.row[aria-checked='true'] .switch i {
+  transform: translateX(20px);
+}
+
+/* ---------- Segmented buttons ---------- */
+.seg {
+  display: flex;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-btn);
+  padding: 3px;
+  gap: 3px;
+}
+
+.seg-btn {
+  flex: 1;
+  min-height: 38px;
+  padding: 0 4px;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  background: transparent;
+  border: 0;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.seg-btn.on {
+  color: #fff;
+  background: var(--accent);
+}
+
+/* ---------- Form fields ---------- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+.field .seg {
+  width: 100%;
+}
+
+.field-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.text-input {
+  width: 100%;
+  min-height: var(--tap);
+  padding: 8px 12px;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--board-border);
+  border-radius: var(--radius-btn);
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+input[type='range'] {
+  width: 100%;
+  min-height: var(--tap);
+  accent-color: var(--accent);
+}

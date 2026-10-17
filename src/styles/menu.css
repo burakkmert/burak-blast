@@ -1,0 +1,116 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-drawer) - 1);
+  background: var(--overlay-bg);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--dur-med) ease,
+    visibility 0s var(--dur-med);
+}
+
+.backdrop.open {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: var(--z-drawer);
+  width: var(--drawer-w);
+  display: flex;
+  flex-direction: column;
+  padding: calc(8px + var(--safe-t)) 12px calc(12px + var(--safe-b)) calc(12px + var(--safe-l));
+  background: linear-gradient(180deg, var(--bg-1), var(--bg-0));
+  border-right: 1px solid var(--board-border);
+  box-shadow: var(--shadow-panel);
+  transform: translateX(-105%);
+  visibility: hidden;
+  transition:
+    transform var(--dur-med) var(--ease-out),
+    visibility 0s var(--dur-med);
+}
+
+.drawer.open {
+  transform: none;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 8px;
+  font-size: 1.3rem;
+}
+
+.menu-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+  overflow-y: auto;
+  touch-action: pan-y;
+}
+
+.menu-item {
+  min-height: 52px;
+  padding: 10px 14px;
+  text-align: left;
+  font: inherit;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.06);
+  border: 0;
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+}
+
+.menu-item:active {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.drawer-foot {
+  padding-top: 10px;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+/* Hamburger icon that turns into a cross; colors come from currentColor */
+.burger {
+  width: 24px;
+  height: 24px;
+}
+
+.burger line {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition:
+    transform var(--dur-med) var(--ease-out),
+    opacity var(--dur-fast) ease;
+}
+
+.burger.is-open .l1,
+.is-open .burger .l1 {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.burger.is-open .l2,
+.is-open .burger .l2 {
+  opacity: 0;
+  transform: scaleX(0.2);
+}
+
+.burger.is-open .l3,
+.is-open .burger .l3 {
+  transform: translateY(-6px) rotate(-45deg);
+}

@@ -1,0 +1,13 @@
+{
+  "appId": "com.burak.burakblast",
+  "appName": "BurakBlast",
+  "webDir": "dist",
+  "backgroundColor": "#0e0c26",
+  "plugins": {
+    "SystemBars": {
+      "style": "DARK",
+      "insetsHandling": "css",
+      "initialViewportFitValueHint": "cover"
+    }
+  }
+}

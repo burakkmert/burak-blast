@@ -1,0 +1,171 @@
+.board {
+  width: var(--board-size);
+  aspect-ratio: 1;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr); /* keep in sync with BOARD_SIZE in core/board.js */
+  grid-template-rows: repeat(8, 1fr);
+  gap: var(--gap);
+  padding: var(--gap);
+  background: linear-gradient(180deg, var(--board-bg-a), var(--board-bg-b));
+  border: 1px solid var(--board-border);
+  border-radius: var(--radius-board);
+  box-shadow: var(--shadow-board);
+}
+
+/* An empty cell. ::before is the flash / gray overlay, ::after (filled cells) the highlight. */
+.cell {
+  position: relative;
+  background: var(--cell-empty);
+  border-radius: var(--radius-cell);
+  box-shadow:
+    inset 0 2px 3px rgba(0, 0, 0, 0.35),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.cell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* A block: one class whose look comes from the --t-* theme variables and --block-color */
+.cell.filled {
+  --fill: color-mix(in srgb, var(--block-color) var(--t-fill-mix), var(--t-fill-base));
+  --top: color-mix(in srgb, var(--fill) var(--t-top-mix), white);
+  --hi: color-mix(in srgb, var(--block-color) var(--t-hi-mix), white);
+  --lo: color-mix(in srgb, var(--block-color) var(--t-lo-mix), black);
+  --ring: color-mix(in srgb, var(--block-color) var(--t-ring-mix), var(--t-ring-base));
+  --cell-glow: color-mix(in srgb, var(--block-color) 70%, transparent);
+  --piece-color: var(--block-color);
+  isolation: isolate; /* keeps the ::after blend inside this cell */
+  --block-shadow:
+    inset 0 var(--t-bevel-top) 0 var(--hi), inset 0 calc(var(--t-bevel-bottom) * -1) 0 var(--lo),
+    inset 0 0 0 var(--t-ring-w) var(--ring), inset 0 0 var(--t-inset-glow) var(--cell-glow),
+    0 0 var(--t-glow) var(--cell-glow);
+  /* Layers, top to bottom: photo, body gradient */
+  background: var(--t-image), linear-gradient(180deg, var(--top) 0%, var(--fill) 35%, var(--fill) 100%);
+  background-size:
+    cover,
+    100% 100%;
+  background-position: center;
+  box-shadow: var(--block-shadow);
+}
+
+/* Glossy highlight (jelly, pastel) plus the radial tint from the piece color (photo), no extra DOM */
+.cell.filled::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 18% 10% at 32% 24%,
+      color-mix(in srgb, white calc(var(--t-gloss-op) * 40%), transparent) 96%,
+      transparent 100%
+    ),
+    radial-gradient(
+      closest-side,
+      color-mix(in srgb, var(--piece-color) var(--t-tone-center), transparent) 35%,
+      color-mix(in srgb, var(--piece-color) var(--t-tone-edge), transparent) 100%
+    );
+  mix-blend-mode: var(--t-blend);
+}
+
+/* Drop preview: cells the piece would fill */
+.cell.preview {
+  background: color-mix(in srgb, var(--preview-color) 55%, transparent);
+}
+
+/* Lines that would clear on drop glow in the piece's color */
+.cell.will-clear {
+  background: var(--preview-color);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.85),
+    0 0 8px var(--preview-color);
+}
+
+/* ---------- Animations (transform and opacity only) ---------- */
+
+/* Placement: squash into place */
+.cell.settle {
+  animation: settle var(--dur-settle) var(--ease-out);
+}
+
+@keyframes settle {
+  0% {
+    transform: scale(1.18, 0.86);
+  }
+  40% {
+    transform: scale(0.94, 1.08);
+  }
+  70% {
+    transform: scale(1.04, 0.98);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Clear: flash, then shrink away (staggered by --delay) */
+.cell.clearing {
+  z-index: 1;
+  animation: clear-pop var(--dur-clear) ease-in var(--delay, 0ms) forwards;
+}
+
+.cell.clearing::before {
+  animation: clear-flash var(--dur-clear) ease-out var(--delay, 0ms) forwards;
+}
+
+@keyframes clear-pop {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  30% {
+    transform: scale(1.14);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes clear-flash {
+  0% {
+    opacity: 0;
+  }
+  30%,
+  100% {
+    opacity: 0.85;
+  }
+}
+
+/* Start-of-game wave */
+.cell.wave-in {
+  animation: wave-in var(--dur-slow) var(--ease-spring) var(--wave-delay, 0ms) backwards;
+}
+
+@keyframes wave-in {
+  from {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+}
+
+/* Game over: cells turn gray one by one */
+.cell.gameover::before {
+  background: var(--gameover-tint);
+  animation: gameover-tint var(--dur-gameover) ease-out var(--delay, 0ms) forwards;
+}
+
+@keyframes gameover-tint {
+  to {
+    opacity: 0.82;
+  }
+}
